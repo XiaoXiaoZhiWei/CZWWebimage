@@ -1,5 +1,5 @@
 //
-//  CZWDownload.h
+//  UIImageView+download.h
 //  CZWWebimage
 //
 //  Created by dingdang on 2019/4/10.
@@ -8,19 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void (^DownloadBlock) (UIImage *);
 
-@interface CZWDownload : NSObject
-
+@interface UIImageView (Download)
 
 /**
  下载图片
-
+ 
  @param urlStr 下载地址
  @param downloadBlock 完成下载回调，返回下载图片
  */
-+ (void)downloadImageWithUrlStr:(NSString *)urlStr completionHandler:(DownloadBlock)downloadBlock;
-
+- (void)downloadImageWithUrlStr:(NSString *)urlStr completionHandler:(DownloadBlock)downloadBlock;
 @end
 
-
+NS_ASSUME_NONNULL_END
