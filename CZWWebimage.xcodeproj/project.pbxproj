@@ -15,6 +15,7 @@
 		763D7041225C869800849D0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 763D7040225C869800849D0D /* main.m */; };
 		763D704B225C869800849D0D /* CZWWebimageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 763D704A225C869800849D0D /* CZWWebimageTests.m */; };
 		763D7056225C869800849D0D /* CZWWebimageUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 763D7055225C869800849D0D /* CZWWebimageUITests.m */; };
+		766F516C225DE47900E7DA39 /* CZWDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 766F516B225DE47900E7DA39 /* CZWDownload.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		763D7051225C869800849D0D /* CZWWebimageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CZWWebimageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		763D7055225C869800849D0D /* CZWWebimageUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CZWWebimageUITests.m; sourceTree = "<group>"; };
 		763D7057225C869800849D0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		766F516A225DE47900E7DA39 /* CZWDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZWDownload.h; sourceTree = "<group>"; };
+		766F516B225DE47900E7DA39 /* CZWDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZWDownload.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		763D7030225C869600849D0D /* CZWWebimage */ = {
 			isa = PBXGroup;
 			children = (
+				766F5166225DDE0B00E7DA39 /* CZWLibWebimage */,
 				763D7031225C869600849D0D /* AppDelegate.h */,
 				763D7032225C869600849D0D /* AppDelegate.m */,
 				763D7034225C869600849D0D /* ViewController.h */,
@@ -130,6 +134,15 @@
 				763D7057225C869800849D0D /* Info.plist */,
 			);
 			path = CZWWebimageUITests;
+			sourceTree = "<group>";
+		};
+		766F5166225DDE0B00E7DA39 /* CZWLibWebimage */ = {
+			isa = PBXGroup;
+			children = (
+				766F516A225DE47900E7DA39 /* CZWDownload.h */,
+				766F516B225DE47900E7DA39 /* CZWDownload.m */,
+			);
+			path = CZWLibWebimage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				766F516C225DE47900E7DA39 /* CZWDownload.m in Sources */,
 				763D7036225C869600849D0D /* ViewController.m in Sources */,
 				763D7041225C869800849D0D /* main.m in Sources */,
 				763D7033225C869600849D0D /* AppDelegate.m in Sources */,
