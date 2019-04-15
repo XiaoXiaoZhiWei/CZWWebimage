@@ -12,6 +12,24 @@
 
 - (void)downloadImageWithUrlStr:(NSString *)urlStr completionHandler:(DownloadBlock)downloadBlock
 {
+    //1.内存先取。
+    UIImage *cacheImage = [[CZWImageViewCache shareInstance] getCacheImageWithUrlStr:urlStr];
+    if (cacheImage != nil) {
+        downloadBlock(cacheImage);
+        NSLog(@"1.内存先取。");
+        return;
+    }
+    //2.内存没有，硬盘再取。
+    UIImage *diskImage = [[CZWImageViewDisk shareInstance] getDiskImageWithUrlStr:urlStr];
+    if (diskImage != nil) {
+        //1.内存缓存
+        [[CZWImageViewCache shareInstance] setImage:diskImage forkey:urlStr];
+        downloadBlock(diskImage);
+        NSLog(@"2.内存没有，硬盘再取。");
+        return;
+    }
+    //3.硬盘没有，网络获取。
+    NSLog(@"3.内存没有,硬盘没有，网络获取。");
     __block UIImage *image = nil;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -23,6 +41,11 @@
             return ;
         }
         image = [UIImage imageWithData:data];
+        //1.内存缓存
+        [[CZWImageViewCache shareInstance] setImage:image forkey:urlStr];
+        //2.硬盘缓存
+        [[CZWImageViewDisk shareInstance] setImage:image forkey:urlStr];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             downloadBlock(image);
         });

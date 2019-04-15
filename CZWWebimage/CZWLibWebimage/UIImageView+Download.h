@@ -4,9 +4,11 @@
 //
 //  Created by dingdang on 2019/4/10.
 //  Copyright © 2019 dingdang. All rights reserved.
-//
+//  下载类
 
 #import <UIKit/UIKit.h>
+#import "CZWImageViewDisk.h"
+#import "CZWImageViewCache.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
