@@ -29,10 +29,26 @@
     return filePath;
 }
 
+//png格式是带alpha通道的，而jpeg没有。因此，我们可以根据是否含有alpha通道来判断.
++ (BOOL)containsAlphaWithCGImage:(CGImageRef)imageRef {
+    if (!imageRef) {
+        return NO;
+    }
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+    BOOL hasAlpha = !(alphaInfo == kCGImageAlphaNone || alphaInfo == kCGImageAlphaNoneSkipFirst || alphaInfo == kCGImageAlphaNoneSkipLast);
+    return hasAlpha;
+}
+
 + (void)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSData *imageData = UIImagePNGRepresentation(image);
+        NSData *imageData = nil;
+        if ([CZWImageViewFileManager containsAlphaWithCGImage:image.CGImage]) {
+            imageData = UIImagePNGRepresentation(image);
+        } else {
+            imageData = UIImageJPEGRepresentation(image, 1.0);
+        }
+
         NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
         [imageData writeToFile:filePath atomically:YES];
     });
