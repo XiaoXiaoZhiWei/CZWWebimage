@@ -29,20 +29,26 @@
     return filePath;
 }
 
-+ (BOOL)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr
++ (void)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr
 {
-    NSData *imageData = UIImagePNGRepresentation(image);
-    NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
-    BOOL isSave = [imageData writeToFile:filePath atomically:YES];
-    return isSave;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSData *imageData = UIImagePNGRepresentation(image);
+        NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
+        [imageData writeToFile:filePath atomically:YES];
+    });
 }
 
-+ (UIImage *)getDiskImageWithUrlStr:(NSString *)urlStr
++ (void)getDiskImageWithUrlStr:(NSString *)urlStr completeHandle:(void (^) (UIImage *))completionBlock
 {
     NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    UIImage *image = [UIImage imageWithData:data];
-    return image;
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        UIImage *image = [UIImage imageWithData:data];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(image);
+        });
+    });
 }
 
 @end

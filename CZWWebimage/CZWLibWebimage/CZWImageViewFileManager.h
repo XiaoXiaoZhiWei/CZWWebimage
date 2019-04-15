@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CZWImageViewFileManager : NSObject
 
 + (NSString *)imageDiskFilePathByUrlStr:(NSString *)urlStr;
-+ (BOOL)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr;
-+ (UIImage *)getDiskImageWithUrlStr:(NSString *)urlStr;
++ (void)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr;
++ (void)getDiskImageWithUrlStr:(NSString *)urlStr completeHandle:(void (^) (UIImage *))completionBlock;
 
 @end
 

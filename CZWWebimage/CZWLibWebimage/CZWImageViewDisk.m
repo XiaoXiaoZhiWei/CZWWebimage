@@ -25,10 +25,12 @@
     [CZWImageViewFileManager saveImage:image forUrlStr:urlStr];
 }
 
--(UIImage *)getDiskImageWithUrlStr:(NSString *)UrlStr
+-(void)getDiskImageWithUrlStr:(NSString *)UrlStr completeHandle:(void (^) (UIImage *))completionBlock
 {
-    UIImage *image = [CZWImageViewFileManager getDiskImageWithUrlStr:UrlStr];
-    return image;
+    [CZWImageViewFileManager getDiskImageWithUrlStr:UrlStr completeHandle:^(UIImage *image) {
+        completionBlock(image);
+    }];
+    
 }
 
 @end
