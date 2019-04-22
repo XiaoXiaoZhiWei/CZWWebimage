@@ -20,15 +20,15 @@
     return _disk;
 }
 
--(void)setImage:(UIImage *)image forkey:(NSString *)urlStr
+-(void)setImage:(NSData *)imageData forkey:(NSString *)urlStr
 {
-    [CZWImageViewFileManager saveImage:image forUrlStr:urlStr];
+    [CZWImageViewFileManager saveImage:imageData forUrlStr:urlStr];
 }
 
--(void)getDiskImageWithUrlStr:(NSString *)UrlStr completeHandle:(void (^) (UIImage *))completionBlock
+-(void)getDiskImageWithUrlStr:(NSString *)UrlStr completeHandle:(void (^) (NSData *))completionBlock
 {
-    [CZWImageViewFileManager getDiskImageWithUrlStr:UrlStr completeHandle:^(UIImage *image) {
-        completionBlock(image);
+    [CZWImageViewFileManager getDiskImageWithUrlStr:UrlStr completeHandle:^(NSData *data) {
+        completionBlock(data);
     }];
     
 }

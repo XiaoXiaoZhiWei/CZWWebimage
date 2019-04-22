@@ -22,6 +22,8 @@
 		763EDD9222645A5C00DDC774 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763EDD9122645A5C00DDC774 /* MainViewController.m */; };
 		766F516F225DECA800E7DA39 /* UIImageView+Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 766F516E225DECA800E7DA39 /* UIImageView+Download.m */; };
 		766F5172225DF23A00E7DA39 /* CZWImageViewCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 766F5171225DF23A00E7DA39 /* CZWImageViewCache.m */; };
+		7697210B226D724E00C741DA /* CZWImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7697210A226D724E00C741DA /* CZWImageCoder.m */; };
+		7697210E226D91DA00C741DA /* UIImage+CZWImageFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7697210D226D91DA00C741DA /* UIImage+CZWImageFormat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,10 @@
 		766F516E225DECA800E7DA39 /* UIImageView+Download.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Download.m"; sourceTree = "<group>"; };
 		766F5170225DF23A00E7DA39 /* CZWImageViewCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CZWImageViewCache.h; sourceTree = "<group>"; };
 		766F5171225DF23A00E7DA39 /* CZWImageViewCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CZWImageViewCache.m; sourceTree = "<group>"; };
+		76972109226D724E00C741DA /* CZWImageCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CZWImageCoder.h; sourceTree = "<group>"; };
+		7697210A226D724E00C741DA /* CZWImageCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CZWImageCoder.m; sourceTree = "<group>"; };
+		7697210C226D91DA00C741DA /* UIImage+CZWImageFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+CZWImageFormat.h"; sourceTree = "<group>"; };
+		7697210D226D91DA00C741DA /* UIImage+CZWImageFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CZWImageFormat.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,10 @@
 				763EDD6E2264138700DDC774 /* CZWImageViewFileManager.m */,
 				763EDD7022642F2500DDC774 /* NSString+MD5.h */,
 				763EDD7122642F2500DDC774 /* NSString+MD5.m */,
+				76972109226D724E00C741DA /* CZWImageCoder.h */,
+				7697210A226D724E00C741DA /* CZWImageCoder.m */,
+				7697210C226D91DA00C741DA /* UIImage+CZWImageFormat.h */,
+				7697210D226D91DA00C741DA /* UIImage+CZWImageFormat.m */,
 			);
 			path = CZWLibWebimage;
 			sourceTree = "<group>";
@@ -314,7 +324,9 @@
 				763D7041225C869800849D0D /* main.m in Sources */,
 				763EDD9222645A5C00DDC774 /* MainViewController.m in Sources */,
 				763EDD6F2264138700DDC774 /* CZWImageViewFileManager.m in Sources */,
+				7697210B226D724E00C741DA /* CZWImageCoder.m in Sources */,
 				763D7033225C869600849D0D /* AppDelegate.m in Sources */,
+				7697210E226D91DA00C741DA /* UIImage+CZWImageFormat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

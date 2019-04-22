@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(CZWImageViewDisk *)shareInstance;
 
--(void)setImage:(UIImage *)image forkey:(NSString *)urlStr;
--(void)getDiskImageWithUrlStr:(NSString *)UrlStr completeHandle:(void (^) (UIImage *))completionBlock;
+-(void)setImage:(NSData *)imageData forkey:(NSString *)urlStr;
+-(void)getDiskImageWithUrlStr:(NSString *)UrlStr completeHandle:(void (^) (NSData *))completionBlock;
 
 @end
 

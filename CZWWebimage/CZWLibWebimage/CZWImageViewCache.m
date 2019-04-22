@@ -30,15 +30,18 @@
     return self;
 }
 
--(void)setImage:(UIImage *)image forkey:(NSString *)urlStr
+-(void)setImage:(NSData *)imageData forkey:(NSString *)urlStr
 {
-    [_imageCache setObject:image forKey:urlStr];
+    [_imageCache setObject:imageData forKey:urlStr];
 }
 
 -(UIImage *)getCacheImageWithUrlStr:(NSString *)UrlStr
 {
-    id image = [_imageCache objectForKey:UrlStr];
-    if ([image isKindOfClass:[UIImage class]]) {
+    UIImage *image = nil;
+    id imageData = [_imageCache objectForKey:UrlStr];
+    if ([imageData isKindOfClass:[NSData class]]) {
+//        return image;
+        image = [[CZWImageCoder shareCoder] decodeImageWithData:imageData];
         return image;
     } else {
         return nil;

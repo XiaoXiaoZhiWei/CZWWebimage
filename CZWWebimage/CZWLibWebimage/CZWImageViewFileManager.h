@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)containsAlphaWithCGImage:(CGImageRef)imageRef;
 + (NSString *)imageDiskFilePathByUrlStr:(NSString *)urlStr;
-+ (void)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr;
-+ (void)getDiskImageWithUrlStr:(NSString *)urlStr completeHandle:(void (^) (UIImage *))completionBlock;
++ (void)saveImage:(NSData *)imageData forUrlStr:(NSString *)urlStr;
++ (void)getDiskImageWithUrlStr:(NSString *)urlStr completeHandle:(void (^) (NSData *))completionBlock;
 
 @end
 

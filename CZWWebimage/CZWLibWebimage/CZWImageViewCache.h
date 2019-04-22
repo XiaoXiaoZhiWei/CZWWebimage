@@ -7,6 +7,7 @@
 //  缓存类
 
 #import <UIKit/UIKit.h>
+#import "CZWImageCoder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSCache *imageCache;
 
 +(CZWImageViewCache *)shareInstance;
--(void)setImage:(UIImage *)image forkey:(NSString *)urlStr;
+-(void)setImage:(NSData *)imageData forkey:(NSString *)urlStr;
 -(UIImage *)getCacheImageWithUrlStr:(NSString *)UrlStr;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "UIImageView+Download.h"
+#import "CZWImageCoder.h"
 
 @implementation UIImageView (Download)
 
@@ -20,10 +21,11 @@
         return;
     }
     //2.内存没有，硬盘再取。
-    [[CZWImageViewDisk shareInstance] getDiskImageWithUrlStr:urlStr completeHandle:^(UIImage * diskImage) {
-      if (diskImage != nil) {
+    [[CZWImageViewDisk shareInstance] getDiskImageWithUrlStr:urlStr completeHandle:^(NSData * diskImageData) {
+      if (diskImageData != nil) {
           //1.内存缓存
-          [[CZWImageViewCache shareInstance] setImage:diskImage forkey:urlStr];
+          [[CZWImageViewCache shareInstance] setImage:diskImageData forkey:urlStr];
+          UIImage *diskImage = [[CZWImageCoder shareCoder] decodeImageWithData:diskImageData];
           downloadBlock(diskImage);
           NSLog(@"2.内存没有，硬盘再取。");
           return;
@@ -41,11 +43,13 @@
                 NSLog(@"%@", [NSString stringWithFormat:@"下载错误:error=%@",error]);
                 return ;
             }
-            image = [UIImage imageWithData:data];
+            
+            image = [[CZWImageCoder shareCoder] decodeImageWithData:data];
+
             //1.内存缓存
-            [[CZWImageViewCache shareInstance] setImage:image forkey:urlStr];
+            [[CZWImageViewCache shareInstance] setImage:data forkey:urlStr];
             //2.硬盘缓存
-            [[CZWImageViewDisk shareInstance] setImage:image forkey:urlStr];
+            [[CZWImageViewDisk shareInstance] setImage:data forkey:urlStr];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 downloadBlock(image);

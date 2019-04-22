@@ -8,6 +8,7 @@
 
 #import "CZWImageViewFileManager.h"
 #import "NSString+MD5.h"
+//#import "CZWImageCoder.h"
 
 @implementation CZWImageViewFileManager
 //获取Documents目录路径
@@ -39,30 +40,31 @@
     return hasAlpha;
 }
 
-+ (void)saveImage:(UIImage *)image forUrlStr:(NSString *)urlStr
++ (void)saveImage:(NSData *)imageData forUrlStr:(NSString *)urlStr
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSData *imageData = nil;
-        if ([CZWImageViewFileManager containsAlphaWithCGImage:image.CGImage]) {
-            imageData = UIImagePNGRepresentation(image);
-        } else {
-            imageData = UIImageJPEGRepresentation(image, 1.0);
-        }
+//        NSData *imageData = nil;
+//        if ([CZWImageViewFileManager containsAlphaWithCGImage:image.CGImage]) {
+//            imageData = UIImagePNGRepresentation(image);
+//        } else {
+//            imageData = UIImageJPEGRepresentation(image, 1.0);
+//        }
 
         NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
         [imageData writeToFile:filePath atomically:YES];
     });
 }
 
-+ (void)getDiskImageWithUrlStr:(NSString *)urlStr completeHandle:(void (^) (UIImage *))completionBlock
++ (void)getDiskImageWithUrlStr:(NSString *)urlStr completeHandle:(void (^) (NSData *))completionBlock
 {
     NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSData *data = [NSData dataWithContentsOfFile:filePath];
-        UIImage *image = [UIImage imageWithData:data];
+//        [UIImage imageWithData:data]
+//        UIImage *image = [[CZWImageCoder shareCoder] decodeImageWithData:data];
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock(image);
+            completionBlock(data);
         });
     });
 }

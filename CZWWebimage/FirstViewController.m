@@ -21,9 +21,14 @@
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(50, 500, 100, 100)];
     imageView2.backgroundColor = [UIColor grayColor];
     [self.view addSubview:imageView2];
-    NSString *imageUrlStr2 = @"https://user-gold-cdn.xitu.io/2019/3/25/169b406dfc5fe46e";
+    NSString *imageUrlStr2 = @"https://user-gold-cdn.xitu.io/2019/3/27/169bce612ee4dc21";
     [imageView2 downloadImageWithUrlStr:imageUrlStr2 completionHandler:^(UIImage * _Nonnull image) {
-        imageView2.image = image;
+        if (image.imageFormat == 2) {
+            imageView2.animationImages = image.images;
+            [imageView2 startAnimating];
+        } else {
+            imageView2.image = image;
+        }
     }];
 }
 
