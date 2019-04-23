@@ -8,7 +8,6 @@
 
 #import "CZWImageViewFileManager.h"
 #import "NSString+MD5.h"
-//#import "CZWImageCoder.h"
 
 @implementation CZWImageViewFileManager
 //获取Documents目录路径
@@ -43,12 +42,14 @@
 + (void)saveImage:(NSData *)imageData forUrlStr:(NSString *)urlStr
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        NSData *imageData = nil;
-//        if ([CZWImageViewFileManager containsAlphaWithCGImage:image.CGImage]) {
-//            imageData = UIImagePNGRepresentation(image);
-//        } else {
-//            imageData = UIImageJPEGRepresentation(image, 1.0);
-//        }
+        /**
+        NSData *imageData = nil;
+        if ([CZWImageViewFileManager containsAlphaWithCGImage:image.CGImage]) {
+            imageData = UIImagePNGRepresentation(image);
+        } else {
+            imageData = UIImageJPEGRepresentation(image, 1.0);
+        }
+         */
 
         NSString *filePath = [CZWImageViewFileManager imageDiskFilePathByUrlStr:urlStr];
         [imageData writeToFile:filePath atomically:YES];

@@ -25,6 +25,8 @@
     [imageView2 downloadImageWithUrlStr:imageUrlStr2 completionHandler:^(UIImage * _Nonnull image) {
         if (image.imageFormat == 2) {
             imageView2.animationImages = image.images;
+            imageView2.animationDuration = image.animationDuration;
+            imageView2.animationRepeatCount = image.animationRepeatCount;
             [imageView2 startAnimating];
         } else {
             imageView2.image = image;

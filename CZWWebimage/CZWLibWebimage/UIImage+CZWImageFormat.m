@@ -10,6 +10,8 @@
 
 static NSString *imagesGetterKey = @"imagesGetterKey";   //定义一个key值
 static NSString *imageFormatGetterKey = @"imageFormatGetterKey";   //定义一个key值
+static NSString *imageAnimationDurationGetterKey = @"imageAnimationDurationGetterKey";   //定义一个key值
+static NSString *imageRepeatCountGetterKey = @"imageRepeatCountGetterKey";   //定义一个key值
 
 @implementation UIImage (CZWImageFormat)
 
@@ -38,6 +40,34 @@ static NSString *imageFormatGetterKey = @"imageFormatGetterKey";   //定义一�
         return imageFormat;
     }
     return imageFormat;
+}
+
+- (void)setAnimationDuration:(NSTimeInterval)animationDuration
+{
+    objc_setAssociatedObject(self, @selector(animationDuration), @(animationDuration), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSTimeInterval)animationDuration
+{
+    NSNumber *value = objc_getAssociatedObject(self, @selector(animationDuration));
+    if ([value isKindOfClass:[NSNumber class]]) {
+        return value.floatValue;
+    }
+    return 0;
+}
+
+- (void)setAnimationRepeatCount:(NSInteger)animationRepeatCount
+{
+    objc_setAssociatedObject(self, @selector(animationDuration), @(animationRepeatCount), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSInteger)animationRepeatCount
+{
+    NSNumber *value = objc_getAssociatedObject(self, @selector(animationDuration));
+    if ([value isKindOfClass:[NSNumber class]]) {
+        return value.integerValue;
+    }
+    return 0;
 }
 
 @end

@@ -9,6 +9,9 @@
 #import "CZWImageCoder.h"
 #import <ImageIO/ImageIO.h>
 
+static const NSTimeInterval kJAnimatedImageDelayTimeIntervalMinimum = 0.02;
+static const NSTimeInterval kJAnimatedImageDefaultDelayTimeInterval = 0.1;
+
 @implementation CZWImageCoder
 
 +(instancetype)shareCoder
@@ -67,7 +70,23 @@
         animatedImage = [[UIImage alloc] initWithData:data];
         animatedImage.imageFormat = JImageFormatGIF;
     } else {
+        NSInteger loopCount = 0;
+        CFDictionaryRef properties = CGImageSourceCopyProperties(source, NULL);
+        if (properties) {
+            CFDictionaryRef gif = CFDictionaryGetValue(properties, kCGImagePropertyGIFDictionary);
+            if (gif) {
+                CFTypeRef loop = CFDictionaryGetValue(gif, kCGImagePropertyGIFLoopCount);
+                if (loop) {
+                    CFNumberGetValue(loop, kCFNumberNSIntegerType, &loopCount);
+                }
+            }
+            CFRelease(properties);
+        }
+        
+        NSMutableArray<NSNumber *> *delayTimeArray = [NSMutableArray array];
         NSMutableArray<UIImage *> *imageArray = [NSMutableArray array];
+        NSTimeInterval duration = 0;
+        
         for (size_t i = 0; i < count; i ++) {
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, i, NULL);
             if (!imageRef) {
@@ -76,10 +95,33 @@
             UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
             [imageArray addObject:image];
             CGImageRelease(imageRef);
+            
+            float delayTime = kJAnimatedImageDefaultDelayTimeInterval;
+            CFDictionaryRef properties = CGImageSourceCopyPropertiesAtIndex(source, i, NULL);
+            if (properties) {
+                CFDictionaryRef gif = CFDictionaryGetValue(properties, kCGImagePropertyGIFDictionary);
+                if (gif) {
+                    CFTypeRef value = CFDictionaryGetValue(gif, kCGImagePropertyGIFUnclampedDelayTime);
+                    if (!value) {
+                        value = CFDictionaryGetValue(gif, kCGImagePropertyGIFDelayTime);
+                    }
+                    if (value) {
+                        CFNumberGetValue(value, kCFNumberFloatType, &delayTime);
+                        if (delayTime < ((float)kJAnimatedImageDelayTimeIntervalMinimum - FLT_EPSILON)) {
+                            delayTime = kJAnimatedImageDefaultDelayTimeInterval;
+                        }
+                    }
+                }
+                CFRelease(properties);
+            }
+            duration += delayTime;
+            [delayTimeArray addObject:@(delayTime)];
         }
         animatedImage = [[UIImage alloc] init];
         animatedImage.imageFormat = JImageFormatGIF;
         animatedImage.images = [imageArray copy];
+        animatedImage.animationRepeatCount = loopCount;
+        animatedImage.animationDuration = duration;
     }
     CFRelease(source);
     return animatedImage;

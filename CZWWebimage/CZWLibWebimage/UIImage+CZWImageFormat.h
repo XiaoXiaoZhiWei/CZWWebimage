@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, JImageFormat) {
 
 @property (nonatomic, assign) JImageFormat imageFormat;
 @property (nonatomic, copy) NSArray *images;
+@property (nonatomic) NSTimeInterval animationDuration;         // for one cycle of images. default is number of images * 1/30th of a second (i.e. 30 fps)
+@property (nonatomic) NSInteger      animationRepeatCount;
 
 @end
 
